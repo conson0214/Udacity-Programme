@@ -31,6 +31,8 @@ from sklearn.metrics import confusion_matrix
 from sklearn.decomposition import RandomizedPCA
 from sklearn.svm import SVC
 
+from sklearn.metrics import f1_score
+
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
@@ -66,7 +68,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 ###############################################################################
 # Compute a PCA (eigenfaces) on the face dataset (treated as unlabeled
 # dataset): unsupervised feature extraction / dimensionality reduction
-n_components = 150
+n_components = 300
 
 print "Extracting the top %d eigenfaces from %d faces" % (n_components, X_train.shape[0])
 t0 = time()
@@ -106,6 +108,9 @@ print "Predicting the people names on the testing set"
 t0 = time()
 y_pred = clf.predict(X_test_pca)
 print "done in %0.3fs" % (time() - t0)
+
+score = f1_score(y_test, y_pred, average='weighted')
+print "f1 score is %f" % score
 
 print classification_report(y_test, y_pred, target_names=target_names)
 print confusion_matrix(y_test, y_pred, labels=range(n_classes))

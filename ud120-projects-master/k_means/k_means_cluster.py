@@ -14,6 +14,9 @@ import sys
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
+
 
 
 
@@ -48,24 +51,34 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2]
+# features_list = [poi, feature_1, feature_2]
+features_list = [poi, feature_1, feature_2, feature_3]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+
+# data_exercised_stock_options = featureFormat(data_dict, ["exercised_stock_options"])
+# data_salary = featureFormat(data_dict, ["salary"])
 
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2 in finance_features:
+for f1, f2, _ in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
 
+scaler = MinMaxScaler(copy=True, feature_range=(0, 1))
+scaler.fit(finance_features)
+finance_features = scaler.transform(finance_features)
 
+kmeans = KMeans(n_clusters=2, random_state=0).fit(finance_features)
+pred = kmeans.predict(finance_features)
 
 
 ### rename the "name" parameter when you change the number of features
