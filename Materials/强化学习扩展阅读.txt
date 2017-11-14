@@ -1,0 +1,4 @@
+https://mpatacchiola.github.io/blog/2016/12/09/dissecting-reinforcement-learning.html  入门强化学的博文
+http://incompleteideas.net/sutton/book/the-book-2nd.html  Reinforcement Learning: An Introduction
+http://ai.berkeley.edu/lecture_videos.html            伯克利 AI 课程
+http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html  David Silver 主讲的强化学习课程
