@@ -89,3 +89,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+P5_program/Dataset/
+
+P5_program/Inception-V3_Szegedy_Rethinking_the_Inception_CVPR_2016_paper\.pdf
