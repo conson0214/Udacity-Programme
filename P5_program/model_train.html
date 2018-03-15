@@ -11775,7 +11775,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#35757;&#32451;&#27169;&#22411;">&#35757;&#32451;&#27169;&#22411;<a class="anchor-link" href="#&#35757;&#32451;&#27169;&#22411;">&#182;</a></h1><h2 id="1.-&#21333;&#27169;&#22411;&#35757;&#32451;">1. &#21333;&#27169;&#22411;&#35757;&#32451;<a class="anchor-link" href="#1.-&#21333;&#27169;&#22411;&#35757;&#32451;">&#182;</a></h2><p>单模型训练, 我们采用的是keras库提供的InceptionV3, ResNet50, InceptionResNetV2三个模型</p>
+<h1 id="&#35757;&#32451;&#27169;&#22411;">&#35757;&#32451;&#27169;&#22411;<a class="anchor-link" href="#&#35757;&#32451;&#27169;&#22411;">&#182;</a></h1><h2 id="1.-&#21333;&#27169;&#22411;&#35757;&#32451;">1. &#21333;&#27169;&#22411;&#35757;&#32451;<a class="anchor-link" href="#1.-&#21333;&#27169;&#22411;&#35757;&#32451;">&#182;</a></h2><p>单模型训练, 我们采用的是keras库提供的InceptionV3, Xception, InceptionResNetV2三个模型</p>
 <p>数据集下载：<a href="https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data">https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data</a></p>
 
 </div>
@@ -11791,7 +11791,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="k">import</span> <span class="o">*</span>
@@ -11819,6 +11819,26 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/autel/.local/lib/python3.5/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -11830,7 +11850,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">check_path_gen</span><span class="p">():</span>
@@ -11849,16 +11869,57 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#23450;&#20041;&#21076;&#38500;&#24322;&#24120;&#25968;&#25454;&#20989;&#25968;">&#23450;&#20041;&#21076;&#38500;&#24322;&#24120;&#25968;&#25454;&#20989;&#25968;<a class="anchor-link" href="#&#23450;&#20041;&#21076;&#38500;&#24322;&#24120;&#25968;&#25454;&#20989;&#25968;">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dog_train_path</span> <span class="o">=</span> <span class="s1">&#39;./Dataset/train/dog&#39;</span>
+<span class="n">cat_train_path</span> <span class="o">=</span> <span class="s1">&#39;./Dataset/train/cat&#39;</span>
+
+<span class="k">def</span> <span class="nf">abnormal_data_reject</span><span class="p">():</span>
+    <span class="n">dog_train_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dog_train_path</span><span class="p">)</span>
+    <span class="n">cat_train_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">cat_train_path</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./abnormal.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">img_name</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;dog&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">dog_train_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cat_train_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">img_name</span><span class="p">)</span>
+    <span class="n">dog_train_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dog_train_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dog_train_list</span><span class="p">]</span>
+    <span class="n">cat_train_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cat_train_path</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">cat_train_list</span><span class="p">]</span>
+    <span class="n">train_list</span> <span class="o">=</span> <span class="n">dog_train_list</span> <span class="o">+</span> <span class="n">cat_train_list</span>
+
+    <span class="k">return</span> <span class="n">train_list</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#23450;&#20041;&#35757;&#32451;&#20989;&#25968;">&#23450;&#20041;&#35757;&#32451;&#20989;&#25968;<a class="anchor-link" href="#&#23450;&#20041;&#35757;&#32451;&#20989;&#25968;">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_cat_dog</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">image_size</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_cat_dog</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">preprocess_func</span><span class="p">):</span>
     <span class="c1"># hyper-parameters</span>
     <span class="n">bs</span> <span class="o">=</span> <span class="mi">16</span>
 
@@ -11878,10 +11939,8 @@ div#notebook {
                   <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">,</span>
                   <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
 
-    <span class="c1"># 获取训练数据</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2017</span><span class="p">)</span>
-
-    <span class="n">n</span> <span class="o">=</span> <span class="mi">25000</span>
+    <span class="c1"># data generate</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">all_train_list</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="n">X_file</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
@@ -11891,17 +11950,19 @@ div#notebook {
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">X_file</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">y_file</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">))):</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;//Dataset/train/cat/cat.</span><span class="si">%d</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;/Dataset/train/dog/dog.</span><span class="si">%d</span><span class="s1">.jpg&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">),</span> <span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="n">y</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">img_name</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">all_train_list</span><span class="p">)):</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_name</span><span class="p">),</span> <span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="s1">&#39;dog&#39;</span> <span class="ow">in</span> <span class="n">img_name</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">X_file</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">y_file</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
-    <span class="n">train_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">preprocessing_function</span><span class="o">=</span><span class="n">preprocess_input</span><span class="p">)</span>
-    <span class="n">val_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">preprocessing_function</span><span class="o">=</span><span class="n">preprocess_input</span><span class="p">)</span>
+    <span class="n">train_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">preprocessing_function</span><span class="o">=</span><span class="n">preprocess_func</span><span class="p">)</span>
+    <span class="n">val_datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span><span class="n">preprocessing_function</span><span class="o">=</span><span class="n">preprocess_func</span><span class="p">)</span>
 
     <span class="n">train_generator</span> <span class="o">=</span> <span class="n">train_datagen</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">bs</span><span class="p">)</span>
     <span class="n">val_generator</span> <span class="o">=</span> <span class="n">val_datagen</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">bs</span><span class="p">)</span>
@@ -11922,8 +11983,9 @@ div#notebook {
     <span class="n">tensorboard</span> <span class="o">=</span> <span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="n">log_path</span><span class="p">)</span>
 
     <span class="c1"># 训练</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">val_generator</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlyStopping</span><span class="p">,</span> <span class="n">saveBestModel</span><span class="p">,</span> <span class="n">reduce_lr</span><span class="p">,</span> <span class="n">tensorboard</span><span class="p">])</span><span class="n">W</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="n">steps_per_epoch</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">val_generator</span><span class="p">,</span>
+                        <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">earlyStopping</span><span class="p">,</span> <span class="n">saveBestModel</span><span class="p">,</span> <span class="n">reduce_lr</span><span class="p">,</span> <span class="n">tensorboard</span><span class="p">])</span>
+    <span class="c1"># model.fit(X, y, batch_size=16, epochs=50, validation_split=0.1)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">MODEL</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;_cvd.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -11942,28 +12004,145 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">check_path_gen</span><span class="p">()</span>
+<span class="n">all_train_list</span> <span class="o">=</span> <span class="n">abnormal_data_reject</span><span class="p">()</span>
 
 <span class="c1"># tick tock start</span>
 <span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">InceptionV3</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">))</span>
+<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">InceptionV3</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">inception_v3</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
 <span class="n">endtimeV3</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
-<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">ResNet50</span><span class="p">,</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))</span>
-<span class="n">endtimeRes</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">Xception</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">xception</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
+<span class="n">endtimeXcep</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
-<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">InceptionResNetV2</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">))</span>
+<span class="n">train_cat_dog</span><span class="p">(</span><span class="n">InceptionResNetV2</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">inception_resnet_v2</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
 <span class="n">endtimeIRV2</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;InceptionV3 train time </span><span class="si">%d</span><span class="s1"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endtimeV3</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ResNet50 train time </span><span class="si">%d</span><span class="s1"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endtimeRes</span><span class="o">-</span><span class="n">endtimeV3</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;InceptionResNetV2 train time </span><span class="si">%d</span><span class="s1"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endtimeIRV2</span><span class="o">-</span><span class="n">endtimeRes</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Xception train time </span><span class="si">%d</span><span class="s1"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endtimeXcep</span><span class="o">-</span><span class="n">endtimeV3</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;InceptionResNetV2 train time </span><span class="si">%d</span><span class="s1"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endtimeIRV2</span><span class="o">-</span><span class="n">endtimeXcep</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 1/8
+ - 316s - loss: 0.1761 - acc: 0.9279 - val_loss: 0.1110 - val_acc: 0.9550
+
+Epoch 00001: val_loss improved from inf to 0.11102, saving model to ./Weights/InceptionV3/best_weights
+Epoch 2/8
+ - 305s - loss: 0.0960 - acc: 0.9642 - val_loss: 0.0954 - val_acc: 0.9578
+
+Epoch 00002: val_loss improved from 0.11102 to 0.09543, saving model to ./Weights/InceptionV3/best_weights
+Epoch 3/8
+ - 306s - loss: 0.0707 - acc: 0.9729 - val_loss: 0.0782 - val_acc: 0.9691
+
+Epoch 00003: val_loss improved from 0.09543 to 0.07818, saving model to ./Weights/InceptionV3/best_weights
+Epoch 4/8
+ - 305s - loss: 0.0558 - acc: 0.9807 - val_loss: 0.0761 - val_acc: 0.9739
+
+Epoch 00004: val_loss improved from 0.07818 to 0.07614, saving model to ./Weights/InceptionV3/best_weights
+Epoch 5/8
+ - 305s - loss: 0.0442 - acc: 0.9829 - val_loss: 0.2729 - val_acc: 0.9116
+
+Epoch 00005: val_loss did not improve
+Epoch 6/8
+ - 305s - loss: 0.0377 - acc: 0.9872 - val_loss: 0.0599 - val_acc: 0.9743
+
+Epoch 00006: val_loss improved from 0.07614 to 0.05987, saving model to ./Weights/InceptionV3/best_weights
+Epoch 7/8
+ - 305s - loss: 0.0311 - acc: 0.9891 - val_loss: 0.0696 - val_acc: 0.9715
+
+Epoch 00007: val_loss did not improve
+Epoch 8/8
+ - 305s - loss: 0.0258 - acc: 0.9903 - val_loss: 0.0899 - val_acc: 0.9763
+
+Epoch 00008: val_loss did not improve
+Epoch 1/8
+ - 536s - loss: 0.0690 - acc: 0.9785 - val_loss: 0.0557 - val_acc: 0.9811
+
+Epoch 00001: val_loss improved from inf to 0.05570, saving model to ./Weights/Xception/best_weights
+Epoch 2/8
+ - 505s - loss: 0.0316 - acc: 0.9902 - val_loss: 0.0676 - val_acc: 0.9827
+
+Epoch 00002: val_loss did not improve
+Epoch 3/8
+ - 505s - loss: 0.0278 - acc: 0.9906 - val_loss: 0.0506 - val_acc: 0.9827
+
+Epoch 00003: val_loss improved from 0.05570 to 0.05055, saving model to ./Weights/Xception/best_weights
+Epoch 4/8
+ - 506s - loss: 0.0190 - acc: 0.9936 - val_loss: 0.0483 - val_acc: 0.9815
+
+Epoch 00004: val_loss improved from 0.05055 to 0.04827, saving model to ./Weights/Xception/best_weights
+Epoch 5/8
+ - 505s - loss: 0.0118 - acc: 0.9968 - val_loss: 0.0470 - val_acc: 0.9871
+
+Epoch 00005: val_loss improved from 0.04827 to 0.04701, saving model to ./Weights/Xception/best_weights
+Epoch 6/8
+ - 505s - loss: 0.0082 - acc: 0.9976 - val_loss: 0.0375 - val_acc: 0.9871
+
+Epoch 00006: val_loss improved from 0.04701 to 0.03749, saving model to ./Weights/Xception/best_weights
+Epoch 7/8
+ - 505s - loss: 0.0078 - acc: 0.9976 - val_loss: 0.0341 - val_acc: 0.9920
+
+Epoch 00007: val_loss improved from 0.03749 to 0.03407, saving model to ./Weights/Xception/best_weights
+Epoch 8/8
+ - 505s - loss: 0.0052 - acc: 0.9981 - val_loss: 0.0465 - val_acc: 0.9855
+
+Epoch 00008: val_loss did not improve
+Epoch 1/8
+ - 654s - loss: 0.0978 - acc: 0.9637 - val_loss: 0.0434 - val_acc: 0.9815
+
+Epoch 00001: val_loss improved from inf to 0.04338, saving model to ./Weights/InceptionResNetV2/best_weights
+Epoch 2/8
+ - 648s - loss: 0.0524 - acc: 0.9816 - val_loss: 0.3867 - val_acc: 0.9594
+
+Epoch 00002: val_loss did not improve
+Epoch 3/8
+ - 648s - loss: 0.0360 - acc: 0.9865 - val_loss: 0.0805 - val_acc: 0.9815
+
+Epoch 00003: val_loss did not improve
+Epoch 4/8
+ - 648s - loss: 0.0236 - acc: 0.9910 - val_loss: 0.0852 - val_acc: 0.9735
+
+Epoch 00004: val_loss did not improve
+Epoch 5/8
+ - 648s - loss: 0.0162 - acc: 0.9946 - val_loss: 0.0406 - val_acc: 0.9855
+
+Epoch 00005: val_loss improved from 0.04338 to 0.04062, saving model to ./Weights/InceptionResNetV2/best_weights
+Epoch 6/8
+ - 648s - loss: 0.0158 - acc: 0.9944 - val_loss: 0.0839 - val_acc: 0.9851
+
+Epoch 00006: val_loss did not improve
+Epoch 7/8
+ - 648s - loss: 0.0086 - acc: 0.9967 - val_loss: 0.0549 - val_acc: 0.9843
+
+Epoch 00007: val_loss did not improve
+Epoch 8/8
+ - 648s - loss: 0.0068 - acc: 0.9977 - val_loss: 0.1738 - val_acc: 0.9771
+
+Epoch 00008: val_loss did not improve
+InceptionV3 train time 2529 seconds
+Xception train time 4150 seconds
+InceptionResNetV2 train time 5434 seconds
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -11987,10 +12166,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">write_gap</span><span class="p">(</span><span class="n">MODEL</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">lambda_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># get model</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">height</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">Input</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -12001,18 +12181,39 @@ div#notebook {
     <span class="n">base_model</span> <span class="o">=</span> <span class="n">MODEL</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">base_model</span><span class="o">.</span><span class="n">output</span><span class="p">))</span>
 
-    <span class="n">gen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">()</span>
-    <span class="n">train_generator</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span><span class="s2">&quot;./Dataset/train&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                              <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">test_generator</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span><span class="s2">&quot;./Dataset/test2&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                             <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">class_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># data generate</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">all_train_list</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">X_file</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
+    <span class="n">y_file</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.npy&#39;</span>
 
-    <span class="n">train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">train_generator</span><span class="o">.</span><span class="n">samples</span><span class="o">/</span><span class="mi">100</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">X_file</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">y_file</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">X_file</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">y_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">img_name</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">all_train_list</span><span class="p">)):</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_name</span><span class="p">),</span> <span class="p">(</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="s1">&#39;dog&#39;</span> <span class="ow">in</span> <span class="n">img_name</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">X_file</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">y_file</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="n">train_data_gen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">()</span>
+    <span class="n">test_data_gen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">()</span>
+
+    <span class="n">train_generator</span> <span class="o">=</span> <span class="n">train_data_gen</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">test_generator</span> <span class="o">=</span> <span class="n">test_data_gen</span><span class="o">.</span><span class="n">flow_from_directory</span><span class="p">(</span><span class="s2">&quot;./Dataset/test2&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
+                                                       <span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">class_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="c1"># feature get</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">100</span><span class="p">))</span>
     <span class="n">test</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_generator</span><span class="p">(</span><span class="n">test_generator</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">test_generator</span><span class="o">.</span><span class="n">samples</span><span class="o">/</span><span class="mi">100</span><span class="p">))</span>
     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;gap_</span><span class="si">%s</span><span class="s2">.h5&quot;</span> <span class="o">%</span> <span class="n">MODEL</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
         <span class="n">h</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">train</span><span class="p">)</span>
         <span class="n">h</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">test</span><span class="p">)</span>
-        <span class="n">h</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">train_generator</span><span class="o">.</span><span class="n">classes</span><span class="p">)</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12030,18 +12231,39 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">write_gap</span><span class="p">(</span><span class="n">ResNet50</span><span class="p">,</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))</span>
 <span class="n">write_gap</span><span class="p">(</span><span class="n">InceptionV3</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">inception_v3</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
+<span class="n">write_gap</span><span class="p">(</span><span class="n">Xception</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">xception</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
 <span class="n">write_gap</span><span class="p">(</span><span class="n">InceptionResNetV2</span><span class="p">,</span> <span class="p">(</span><span class="mi">299</span><span class="p">,</span> <span class="mi">299</span><span class="p">),</span> <span class="n">inception_resnet_v2</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">)</span>
 <span class="n">endtime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">((</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Found 12500 images belonging to 1 classes.
+Found 12500 images belonging to 1 classes.
+Found 12500 images belonging to 1 classes.
+1357
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -12056,7 +12278,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="p">[]</span>
@@ -12064,7 +12286,7 @@ div#notebook {
 
 <span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
-<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gap_ResNet50.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_InceptionResNetV2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_InceptionV3.h5&quot;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gap_InceptionV3.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_Xception.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_InceptionResNetV2.h5&quot;</span><span class="p">]:</span>
     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
         <span class="n">X_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]))</span>
         <span class="n">X_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]))</span>
@@ -12101,6 +12323,52 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/autel/.local/lib/python3.5/site-packages/ipykernel_launcher.py:31: UserWarning: The `nb_epoch` argument in `fit` has been renamed `epochs`.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train on 19918 samples, validate on 4980 samples
+Epoch 1/8
+19918/19918 [==============================] - 2s 116us/step - loss: 0.0694 - acc: 0.9810 - val_loss: 0.0166 - val_acc: 0.9952
+Epoch 2/8
+19918/19918 [==============================] - 1s 55us/step - loss: 0.0170 - acc: 0.9952 - val_loss: 0.0095 - val_acc: 0.9968
+Epoch 3/8
+19918/19918 [==============================] - 1s 56us/step - loss: 0.0131 - acc: 0.9960 - val_loss: 0.0099 - val_acc: 0.9968
+Epoch 4/8
+19918/19918 [==============================] - 1s 54us/step - loss: 0.0113 - acc: 0.9964 - val_loss: 0.0109 - val_acc: 0.9966
+Epoch 5/8
+19918/19918 [==============================] - 1s 56us/step - loss: 0.0108 - acc: 0.9964 - val_loss: 0.0072 - val_acc: 0.9968
+Epoch 6/8
+19918/19918 [==============================] - 1s 55us/step - loss: 0.0099 - acc: 0.9968 - val_loss: 0.0071 - val_acc: 0.9966
+Epoch 7/8
+19918/19918 [==============================] - 1s 55us/step - loss: 0.0089 - acc: 0.9974 - val_loss: 0.0090 - val_acc: 0.9968
+Epoch 8/8
+19918/19918 [==============================] - 1s 56us/step - loss: 0.0086 - acc: 0.9971 - val_loss: 0.0076 - val_acc: 0.9968
+model concat train time 45 seconds
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -12113,7 +12381,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -12127,6 +12395,41 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.image.AxesImage at 0x7f9a7be38dd8&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
 </div>
 </div>
 

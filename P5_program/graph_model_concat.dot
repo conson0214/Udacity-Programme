@@ -1,9 +1,9 @@
 digraph G{
     node [shape=record]
-    a[label="ResNet50|{input:|output:}|{(224, 224, 3)|(2048)}"]
-    b[label="InceptionResNetV2|{input:|output:}|{(299, 299, 3)|(1536)}"]
-    c[label="InceptionV3|{input:|output:}|{(299, 299, 3)|(2048)}"]
-    Merge[label="Merge|{input:|output:}|{(2048),(1536),(2048)|(5632)}"]
+    a[label="InceptionV3|{input:|output:}|{(299, 299, 3)|(2048)}"]
+    b[label="Xception|{input:|output:}|{(299, 299, 3)|(2048)}"]
+    c[label="InceptionResNetV2|{input:|output:}|{(299, 299, 3)|(1536)}"]
+    Merge[label="Merge|{input:|output:}|{(2048),(2048),(1536)|(5632)}"]
     Dropout[label="Dropout|Rate:|0.5"]
     Output[label="Output|{input:|output:}|{(5632)|(1)}"]
     Image -> a -> Merge
