@@ -27,6 +27,6 @@ jupyter 1.0.0
 ## 4. 训练时间
 | 模型名称              | 训练用时(s) |
 | ----------------- | ------- |
-| InceptionV3       | 3231    |
-| ResNet50          | 2411    |
-| InceptionResNetV2 | 6863    |
+| InceptionV3       | 2529    |
+| Xception          | 4150    |
+| InceptionResNetV2 | 5434    |
